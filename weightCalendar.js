@@ -1,5 +1,8 @@
 const calendarBox = document.querySelector('.calendarBox')
 const weekBox = document.querySelector('.weekBox')
+const backBtn = document.querySelector('.back')
+const forwardBtn = document.querySelector('.forward')
+const monthTxt = document.querySelector('.monthText')
 
 // create the days of the week textboxes
 const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -32,6 +35,17 @@ const createDateSquare = (index) => {
   dateSquare.appendChild(addButton)
 
   calendarBox.appendChild(dateSquare)
+
+  addButton.addEventListener('click', (e) => {
+    const targetBox = e.currentTarget.parentNode
+
+    const weight = window.prompt('Please enter your weight today', '')
+    const weightP = document.createElement('p')
+    weightP.textContent = weight
+    weightP.classList.add('weightText')
+    targetBox.appendChild(weightP)
+    targetBox.removeChild(e.currentTarget)
+  })
 }
 
 const createBlankDateSquare = () => {
@@ -41,16 +55,8 @@ const createBlankDateSquare = () => {
 }
 
 // create 35 date squares
-const startDate = 6
 
-for (let i = 1; i <= 35; i++) {
-
-  if (i <= startDate) {
-    createBlankDateSquare()
-  } else {
-    createDateSquare(i - startDate)
-  }
-}
+let monthIndex = 0
 
 const monthNames = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
   'October', 'November', 'December']
@@ -74,8 +80,40 @@ for (let i = 0; i < monthNames.length; i++) {
   yearArray.push(monthArray)
 }
 
+backBtn.addEventListener('click', () => {
+  if (!(monthIndex <= 0)) {
+    monthIndex--
 
+    clearCalendar()
+    drawCalendar(yearArray[monthIndex].startDay)
+  }
+})
 
+forwardBtn.addEventListener('click', () => {
+  if (!(monthIndex >= 11)) {
+    monthIndex++
 
+    clearCalendar()
+    drawCalendar(yearArray[monthIndex].startDay)
+  }
+})
 
-console.log(yearArray)
+function drawCalendar(startDate) {
+  monthTxt.textContent = yearArray[monthIndex].name
+
+  for (let i = 1; i <= 35; i++) {
+    if ((i <= startDate) || ((i - startDate) > yearArray[monthIndex].days.at(-1))) {
+      createBlankDateSquare()
+    } else {
+      createDateSquare(i - startDate)
+    }
+  }
+}
+
+function clearCalendar() {
+  while (calendarBox.firstChild) {
+    calendarBox.removeChild(calendarBox.firstChild)
+  }
+}
+
+drawCalendar(yearArray[monthIndex].startDay)

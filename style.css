@@ -16,7 +16,9 @@
     flex-grow: 1;
 
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+
+    height: 20%;
 }
 
 .date {
@@ -26,6 +28,8 @@
     margin: 0;
     margin-right: 10px;
     margin-top: 5px;
+
+    align-self: flex-end;
     
 }
 
@@ -36,9 +40,7 @@
 
     padding: 0;
 
-    margin: auto;
-    margin-left: 35px;
-    justify-self: center;
+    margin-top: 10px;
 }
 
 
@@ -80,6 +82,7 @@
     border: 1px solid black;
 
     display: flex;
+
 }
 
 .logo {
@@ -93,8 +96,9 @@
     font-size: 48px;
 
     align-self: center;
-    
-    margin-left: 294px;
+    text-align: center;
+
+    width: 205px;
 }
 
 .monthButton {
@@ -133,9 +137,25 @@
 
 .buttonEmbed {
     margin-top: 2px;
+
+    pointer-events: none;
 }
 
 .addButtonImg:hover {
    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.25));
+}
+
+.monthButtonFlex {
+    display: flex;
+    justify-self: center;
+
+    margin-left: 29%
+}
+
+.weightText {
+    align-self: center;
+    font-size: 36px;
+
+    margin-top: 15px;
 }
 
